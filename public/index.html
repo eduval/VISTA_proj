@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <title>VISTA</title>
+  <meta name="description" content="Faith Media Volunteer Management System">
+
+  <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
+
+  <!-- up to 10% speed up for external res -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <!-- preloading icon font is helping to speed up a little bit -->
+  <link rel="preload" href="assets/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="assets/css/core.min.css">
+  <link rel="stylesheet" href="assets/css/vendor_bundle.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap">
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="favicon.png">
+
+</head>
+
+<body>
+
+
+
+  <!-- -->
+  <div class="section">
+    <div class="container">
+
+      <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">Welcome</h1>
+
+        <p class="lead m-0">
+          Sign in to your VISTA account
+        </p>
+      </div>
+
+      <div class="col-md-9 col-lg-6 mx-auto">
+
+        <!-- form -->
+        <form id="login-form">
+
+          <!--
+            <p class="text-danger">
+              Ups! Please check again
+            </p>
+            -->
+
+
+          <div class="form-floating mb-3">
+            <input required placeholder="Email" id="account_email" name="account_email" type="email"
+              class="form-control">
+            <label for="account_email">Email</label>
+          </div>
+
+          <div class="input-group-over mb-3">
+            <div class="form-floating">
+              <input required placeholder="Password" id="account_passwd" name="account_password" type="password"
+                class="form-control">
+              <label for="account_password">Password</label>
+            </div>
+
+            <a href="auth-passreset-basic.html" class="btn smaller link-normal">
+              <span class="fw-bold">RESET?</span>
+            </a>
+
+          </div>
+
+
+
+          <div class="row">
+
+            <div class="col-12 col-md-6 mt-4">
+              <button type="submit" class="btn btn-primary w-100 fw-medium">
+                Sign In
+              </button>
+            </div>
+
+            <div class="col-12 col-md-6 mt-4 text-align-end text-center-xs">
+              <a href="auth-signup-basic.html" class="btn px-0 link-normal">
+                Don't have an account yet?
+              </a>
+            </div>
+
+          </div>
+
+        </form>
+
+        <p id="login-error" style="color:red; margin-top:10px; display:none;"></p>
+
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+  <!-- / -->
+
+
+  <!-- Core javascripts -->
+  <script src="assets/js/core.min.js"></script>
+  <script src="assets/js/vendor_bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+  <script type="module">
+    import { auth } from "./js/firebase-config.js";
+    import "./js/firebase-config.js";
+    import "./js/auth.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // window.location.href = "admindashboard.html";
+      }
+    });
+  </script>
+
+</body>
+
+</html>
