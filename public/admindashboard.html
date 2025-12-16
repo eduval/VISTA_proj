@@ -92,12 +92,22 @@
           <!-- navbar : navigation -->
           <div class="collapse navbar-collapse" id="navbarMainNav">
 
+
+
             <h1 class="h4 mb-0 text-dark px-4" style="font-weight: normal;">
               My Services
-              <span class="d-block text-muted smaller">
-                Manage and monitor volunteer services
+              <span class="d-block mt-2 text-muted smaller">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb small">
+
+                    <li class="breadcrumb-item text-muted active" aria-current="page">Manage and monitor volunteer
+                      services
+                    </li>
+                  </ol>
+                </nav>
               </span>
             </h1>
+
 
 
             <!-- navbar : mobile menu -->
@@ -137,9 +147,8 @@
 
               <!-- has avatar -->
               <a href="#" id="dropdownAccountOptions"
-                class="btn btn-sm btn-icon btn-light dropdown-toggle rounded-circle shadow bg-cover"
-                style="background-image:url(users_img/vista.jpeg)" data-bs-toggle="dropdown"
-                data-bs-auto-close="outside" aria-expanded="false" aria-haspopup="true"
+                class="btn btn-sm btn-icon btn-light dropdown-toggle rounded-circle shadow bg-cover" style=""
+                data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-haspopup="true"
                 aria-label="Account options"></a>
 
               <!-- no avatar -->
@@ -295,55 +304,60 @@
             aria-valuemax="100"></div>
         </div>
 
-
-
         <div class="card-header bg-white mb-3">
-
-
-
-          <!-- review filter -->
-          <div class="order-2 order-md-1 col m-2">
-            <form class="position-relative d-flex align-items-center" method="get" action="#">
-
-              <!-- search icon -->
-              <svg class="z-index-1 position-absolute start-0 ms-3 text-primary" width="18px" height="18px"
-                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-
-              <div class="dropdown w-100">
-
-                <input type="text" class="form-control form-control-sm border-0 shadow-none ps-5 bg-gray-100"
-                  data-bs-toggle="dropdown" data-bs-auto-close="outside" placeholder="Search...">
-
-                <!--
-                        .dropdown-mega-sm
-                        .dropdown-mega-md
-                        .dropdown-mega-lg
-                        .dropdown-mega-xl
-                      -->
-
-              </div>
-
-            </form>
+          <div id="serviceHeader" class="d-flex align-items-center justify-content-left gap-3">
+            <!-- Content will be injected here -->
           </div>
-
-          <!-- options -->
-          <div class="order-1 order-md-2 col-md-auto">
-            <a href="newservice.html" class="w-100 btn btn-sm btn-primary">
-              <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              <span>New Service</span>
-            </a>
-          </div>
-
         </div>
-        <a href="activeservice.html">active service</a>
+
+        <script type="module">
+          import { getCurrentUserRole } from './js/auth-helpers.js';
+
+
+          const headerContainer = document.getElementById('serviceHeader');
+
+          const role = await getCurrentUserRole();
+
+          let headerHTML = `
+  <!-- Search Form -->
+  <form class="position-relative d-flex align-items-center" style="max-width: 360px; width: 100%;">
+    <!-- search icon -->
+    <svg class="z-index-1 position-absolute start-0 ms-3 text-primary" width="18px" height="18px"
+      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+
+    <input type="text" class="form-control form-control-sm border-0 shadow-none ps-5 bg-gray-100"
+      placeholder="Search..." />
+  </form>
+`;
+
+          // Only add New Service button if user is admin
+          if (role === 'admin') {
+            headerHTML += `
+    <a href="newservice.html" class="btn btn-sm btn-primary d-flex align-items-center gap-1">
+      <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      <span>New Service</span>
+    </a>
+  `;
+          }
+
+          headerContainer.innerHTML = headerHTML;
+        </script>
+
+
+
+        <span class="d-block mb-3 text-muted text-truncate fw-small">
+          Upcoming Services
+        </span>
+
+
         <table class="table bg-white mb-5">
           <thead>
             <tr class="bg-light">
@@ -356,9 +370,13 @@
           <tbody id="upcomingServices"></tbody>
         </table>
 
-        <table class="table bg-white">
+        <span class="d-block mb-5 text-muted text-truncate fw-small">
+          Past Services
+        </span>
+
+        <table class="table bg-white rounded-3">
           <thead>
-            <tr class="bg-light">
+            <tr class="card-header bg-light">
               <th>Date & Time</th>
               <th>Volunteers</th>
               <th>Status</th>
@@ -451,6 +469,7 @@
     import "./js/menu.js";
     import "./js/dashboardstats.js";
     import "./js/services.js";
+    import "./js/profile_setting.js";
 
   </script>
 

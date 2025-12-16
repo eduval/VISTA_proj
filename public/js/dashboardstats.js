@@ -1,7 +1,7 @@
 import { auth, db } from "./firebase-config.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getCurrentUserRole } from './auth-helpers.js'; // centralized helper
 
-// Container where cards will be inserted
 const dashboardDiv = document.getElementById("dashboardstats");
 
 dashboardDiv.innerHTML = `
@@ -13,22 +13,31 @@ dashboardDiv.innerHTML = `
 `;
 
 async function loadDashboardStats() {
-    const statsRef = ref(db, "dashboardStats");
-    const snap = await get(statsRef);
+  const role = await getCurrentUserRole(); // get user role
+  const statsRef = ref(db, "dashboardStats");
+  const snap = await get(statsRef);
 
-    if (!snap.exists()) return;
+  if (!snap.exists()) return;
 
-    const statsArr = Object.values(snap.val())
-        .filter(item => item.enabled === true)             // Only enabled
-        .sort((a, b) => (a.id || 0) - (b.id || 0));        // Sort by ID
+  // Convert snapshot to array with keys preserved
+  let statsArr = Object.entries(snap.val())
+    .map(([key, value]) => ({ key, ...value }))
+    .filter(item => item.enabled === true)
+    .sort((a, b) => (a.id || 0) - (b.id || 0)); // sort by ID
 
-    dashboardDiv.innerHTML = ""; // Clear container
+  // Filter stats for non-admins
+  if (role !== 'admin') {
+    const allowedKeys = ['totalServices', 'upcomingServices']; // your actual keys in DB
+    statsArr = statsArr.filter(item => allowedKeys.includes(item.key));
+  }
 
-    statsArr.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "col-lg-3";
+  dashboardDiv.innerHTML = ""; // clear container
 
-        card.innerHTML = `
+  statsArr.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "col-lg-3";
+
+    card.innerHTML = `
           <div class="section p-4 text-center">
             <div class="d-flex flex-column align-items-center gap-2">
               ${item.icon}
@@ -40,10 +49,9 @@ async function loadDashboardStats() {
           </div>
         `;
 
-        dashboardDiv.appendChild(card);
-    });
+    dashboardDiv.appendChild(card);
+  });
 }
 
+
 loadDashboardStats();
-
-
