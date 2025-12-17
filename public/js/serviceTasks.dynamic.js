@@ -124,7 +124,7 @@ onAuthStateChanged(auth, async (user) => {
                     taskContent = `<input type="checkbox"
                      class="form-check-input me-2"
                      style="transform:scale(1.4)"
-                     ${completed ? "checked" : ""} disabled>`;
+                     ${completed ? "checked" : ""}>`;
                 }
 
                 taskList.insertAdjacentHTML("beforeend", `
