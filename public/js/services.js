@@ -125,7 +125,7 @@ async function loadServices() {
         let statusIcon = "";
         let calendarIcon = calendarBlueIcon;
         let actionLabel = "View Details";
-        let actionLink = `serviceDetails.html?serviceId=${serviceId}`;
+        let actionLink = `newServiceAssignment.html?serviceId=${serviceId}`;
 
         if (data.type === "upcoming") {
             statusText = "Upcoming";

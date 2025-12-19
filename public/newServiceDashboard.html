@@ -59,6 +59,53 @@
         box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15);
     }
 </style>
+<!-- Add some custom CSS for styling -->
+<style>
+    .service-status-indicator {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .btn-sidebar-toggle {
+        border: none;
+        background: transparent;
+    }
+
+    /* Make the navbar items vertically centered */
+    .navbar {
+        min-height: 70px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991.98px) {
+        .service-status-indicator {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .navbar-collapse {
+            text-align: center;
+        }
+    }
+
+    .collapse {
+        display: none;
+    }
+
+    .collapse.show {
+        display: block;
+    }
+</style>
 
 
 
@@ -138,10 +185,14 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb small">
                                         <li class="breadcrumb-item"><a href="admindashboard.html">Home</a></li>
-                                        <li class="breadcrumb-item text-muted active" aria-current="page">New Service
+                                        <li class="breadcrumb-item text-muted active" aria-current="page">Service
+                                            Dashboard
                                         </li>
                                     </ol>
                                 </nav>
+                                <span id="serviceDate" class="d-block mt-1 text-muted">Here the date of the
+                                    service</span>
+
                             </span>
                         </h1>
 
@@ -180,6 +231,61 @@
 
                         <!-- account -->
                         <li class="list-inline-item mx-1 dropdown">
+
+
+                            <a href="#" id="notstarted" class="btn d-inline-flex align-items-center gap-2" style="
+     background-color:#F3F4F6;
+     color:#364153;
+     padding:6px 14px;
+     font-size:0.9rem;
+     border-radius:999px;
+   ">
+
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="#364153"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_528_958)">
+                                        <path
+                                            d="M10 0C8.02219 0 6.08879 0.58649 4.4443 1.6853C2.79981 2.78412 1.51809 4.3459 0.761209 6.17317C0.00433286 8.00043 -0.193701 10.0111 0.192152 11.9509C0.578004 13.8907 1.53041 15.6725 2.92894 17.0711C4.32746 18.4696 6.10929 19.422 8.0491 19.8079C9.98891 20.1937 11.9996 19.9957 13.8268 19.2388C15.6541 18.4819 17.2159 17.2002 18.3147 15.5557C19.4135 13.9112 20 11.9778 20 10C19.9971 7.34872 18.9426 4.80684 17.0679 2.9321C15.1932 1.05736 12.6513 0.00286757 10 0V0ZM10 1.66667C11.9221 1.66513 13.7849 2.33146 15.27 3.55167L3.55167 15.27C2.55214 14.0499 1.91972 12.5709 1.72802 11.0054C1.53632 9.43978 1.79322 7.85195 2.46883 6.4267C3.14443 5.00145 4.21095 3.7974 5.54424 2.9547C6.87752 2.11201 8.42273 1.66533 10 1.66667ZM10 18.3333C8.07795 18.3349 6.21507 17.6685 4.73 16.4483L16.4483 4.73C17.4479 5.95013 18.0803 7.42907 18.272 8.99465C18.4637 10.5602 18.2068 12.1481 17.5312 13.5733C16.8556 14.9986 15.7891 16.2026 14.4558 17.0453C13.1225 17.888 11.5773 18.3347 10 18.3333Z"
+                                            fill="#364153"
+                                            style="fill:#364153;fill:color(display-p3 0.2118 0.2549 0.3255);fill-opacity:1;" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_528_958">
+                                            <rect width="20" height="20" fill="white"
+                                                style="fill:white;fill-opacity:1;" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+
+                                <span>Not Started</span>
+                            </a>
+
+
+                            <!-- Start Service Button -->
+
+                            <a href="#" id="startService" class="btn d-inline-flex align-items-center gap-2" style="
+     background-color:#155DFC;
+     color:#ffffff;
+     padding:6px 14px;
+     font-size:0.9rem;
+     border-radius:999px;
+   ">
+
+                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+                                    <path
+                                        d="M17.0783 6.63969L9.12833 0.806361C8.50741 0.351682 7.77269 0.0778563 7.00564 0.0152471C6.23859 -0.0473621 5.46919 0.103692 4.78275 0.451659C4.0963 0.799626 3.51965 1.33091 3.11672 1.9866C2.71378 2.64229 2.50032 3.39676 2.5 4.16636V15.833C2.50014 16.603 2.71361 17.3578 3.11673 18.0138C3.51985 18.6698 4.09684 19.2013 4.78368 19.5492C5.47052 19.8972 6.24034 20.048 7.00771 19.985C7.77507 19.922 8.50997 19.6475 9.13083 19.1922L17.0808 13.3589C17.6086 12.9719 18.0377 12.466 18.3335 11.8822C18.6293 11.2985 18.7835 10.6533 18.7835 9.99886C18.7835 9.34444 18.6293 8.69923 18.3335 8.11548C18.0377 7.53173 17.6086 7.02586 17.0808 6.63886L17.0783 6.63969Z"
+                                        fill="#ffffff" />
+                                </svg>
+
+                                <span>Start Service</span>
+                            </a>
+
+
+
+
 
                             <!-- has avatar -->
                             <a href="#" id="dropdownAccountOptions"
@@ -243,6 +349,7 @@
 
             <!-- sidebar -->
             <aside id="aside-main" class="aside-start aside-hide-xs bg-white shadow-sm d-flex flex-column px-2 h-auto">
+
 
 
                 <!-- sidebar : logo -->
@@ -313,14 +420,17 @@
             <!-- main -->
             <main id="middle" class="flex-fill mx-auto">
 
-                <div id="rolesContainer" class="row g-3"></div>
+
+
+
 
 
 
                 <div class="d-flex align-items-center justify-content-between mt-3">
 
                     <!-- Cancel (left) -->
-                    <a href="newservice.html" class="text-muted ms-3 text-decoration-none fw-small">
+                    <a href="newServiceAssignment.html" id="moveBack"
+                        class="text-muted ms-3 text-decoration-none fw-small">
                         &lt; Cancel
                     </a>
 
@@ -330,7 +440,7 @@
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span>Create service</span>
+                        <span>Next</span>
                     </a>
 
 
@@ -341,78 +451,6 @@
             <!-- /main -->
 
 
-            <div class="modal fade" id="modal-fmFile" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h5 class="modal-title">Service Monitor</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <!-- Modal Body -->
-                        <div class="modal-body">
-
-                            <!-- ALERTA -->
-                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                You can manage core tasks in the role settings. All changes on this screen will apply
-                                only to this
-                                service.
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-
-                            <!-- MAIN CONTENT -->
-                            <div class="container-fluid">
-
-                                <div class="row mb-3">
-                                    <div class="col-12">
-                                        <h3 class="fw-bold">Core Tasks</h3>
-                                        <p class="text-muted mb-3">Before Service</p>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="d-flex justify-content-between align-items-center p-2 border-start border-warning border-3 mb-3">
-                                    Task example
-                                    <button type="button" class="btn btn-soft btn-link">Deactivate</button>
-                                </div>
-
-                                <div
-                                    class="d-flex justify-content-between align-items-center p-2 border-start border-warning border-3 mb-3">
-                                    Task example
-                                    <button type="button" class="btn btn-soft btn-link">Deactivate</button>
-                                </div>
-
-                                <p class="text-muted mb-2">After Service</p>
-
-                                <div
-                                    class="d-flex justify-content-between align-items-center p-2 border-start border-warning border-3 mb-3">
-                                    Task example
-                                    <button type="button" class="btn btn-soft btn-link">Deactivate</button>
-                                </div>
-
-                                <div
-                                    class="d-flex justify-content-between align-items-center p-2 border-start border-warning border-3 mb-3">
-                                    Task example
-                                    <button type="button" class="btn btn-soft btn-link">Deactivate</button>
-                                </div>
-
-                                <!-- Botones finales -->
-                                <div class="d-flex justify-content-between mt-4">
-                                    <button type="button" class="btn btn-soft btn-link">+ Add Task</button>
-                                    <button type="button" class="btn btn-primary">Save Changes</button>
-                                </div>
-
-                            </div>
-                            <!-- /container -->
-
-                        </div>
-                        <!-- /modal-body -->
-
-                    </div>
-                </div>
-            </div>
 
 
         </div>
@@ -462,8 +500,9 @@
 
 
     <!-- Core javascripts -->
-    <script src="assets/js/core.min.js"></script>
-    <script src="assets/js/vendor_bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
 
     <!-- modules -->
@@ -472,8 +511,8 @@
         import "./js/auth.js";
         import "./js/menu.js";
         import "./js/profile_setting.js";
-        import "./js/newServiceAssignment.js";
-        import "./js/createServiceAndTasks.js";
+        import "./js/newServiceDashboard.js";
+
     </script>
 
     <script type="module">
