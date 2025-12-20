@@ -22,6 +22,80 @@
 
   <!-- favicon -->
   <link rel="shortcut icon" href="favicon.png">
+  <style>
+    @media (max-width: 768px) {
+
+      .table-mobile td {
+        white-space: nowrap;
+        font-size: 0.85rem;
+      }
+
+      /* Hide long text */
+      .table-mobile .mobile-hide {
+        display: none !important;
+      }
+
+      /* Compact status */
+      .table-mobile .status-btn {
+        padding: 4px 10px !important;
+        font-size: 0.75rem !important;
+      }
+
+      /* Center icons nicely */
+      .table-mobile .icon-only {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+
+      .th-datetime::after {
+        content: "Date";
+      }
+
+      .th-volunteers::after {
+        content: "Vol.";
+      }
+
+      .th-status::after {
+        content: "St.";
+      }
+
+      .th-actions::after {
+        content: "Go";
+      }
+
+      .th-datetime,
+      .th-volunteers,
+      .th-status,
+      .th-actions {
+        color: transparent;
+        position: relative;
+      }
+
+      .th-datetime::after,
+      .th-volunteers::after,
+      .th-status::after,
+      .th-actions::after {
+        color: #374151;
+        font-weight: 600;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .icon-only {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .icon-only.justify-content-center {
+        justify-content: center;
+      }
+
+    }
+  </style>
 
 </head>
 
@@ -339,33 +413,38 @@
         </span>
 
 
-        <table class="table bg-white mb-5">
-          <thead>
-            <tr class="bg-light">
-              <th>Date & Time</th>
-              <th>Volunteers</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="upcomingServices"></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table bg-white mb-5">
+            <thead>
+              <tr class="bg-light">
+                <th class="th-datetime">Date & Time</th>
+                <th class="th-volunteers text-center">Volunteers</th>
+                <th class="th-status">Status</th>
+                <th class="th-actions">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="upcomingServices"></tbody>
+          </table>
+        </div>
 
         <span class="d-block mb-5 text-muted text-truncate fw-small">
           Past Services
         </span>
 
-        <table class="table bg-white rounded-3">
-          <thead>
-            <tr class="card-header bg-light">
-              <th>Date & Time</th>
-              <th>Volunteers</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="pastServices"></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table bg-white mb-5">
+            <thead>
+              <tr class="bg-light">
+                <th class="th-datetime">Date & Time</th>
+                <th class="th-volunteers text-center">Volunteers</th>
+                <th class="th-status">Status</th>
+                <th class="th-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pastServices"></tbody>
+          </table>
+        </div>
 
 
 

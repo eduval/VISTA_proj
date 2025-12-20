@@ -3,6 +3,20 @@ import { auth, db } from './firebase-config.js';
 import { getCurrentUserRole } from './auth-helpers.js';
 import { ref, get, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+const shortStatus = (status) => {
+    if (!isMobile) return status;
+
+    return {
+        Upcoming: "Up",
+        Ongoing: "On",
+        Active: "On",
+        Completed: "Done"
+    }[status] || status;
+};
+
+
 const userIcon = `
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_48_3107)">
@@ -116,7 +130,10 @@ async function loadServices() {
                 roleOrVolunteers = "N/A";
             }
         } else {
-            roleOrVolunteers = `${volunteersCount} ${volunteersText}`;
+            roleOrVolunteers = isMobile
+                ? `${volunteersCount}`
+                : `${volunteersCount} ${volunteersText}`;
+
         }
 
         // Default status/action
@@ -167,32 +184,44 @@ async function loadServices() {
         }
 
         const row = `
-        <tr>
-            <td class="align-middle">
-                <div class="d-flex align-items-center gap-3" style="${data.type === 'upcoming' && userRole === 'operator' ? 'color:#155DFC;' : ''}">
-                    <div>${calendarIcon}</div>
-                    <div class="d-flex flex-column">
-                        <span class="fw-semibold text-dark">${data.title}</span>
-                        <span class="text-muted small">${data.date} — ${data.time}</span>
-                    </div>
-                </div>
-            </td>
-            <td class="align-middle">
-                <div class="d-flex align-items-center gap-3">
-                    ${userIcon}
-                    ${roleOrVolunteers}
-                </div>
-            </td>
-            <td class="align-middle">
-                <button class="btn btn-soft rounded-pill px-4 py-1 fw-semibold" style="font-size: 0.825rem; ${statusStyle}">
-                    ${statusIcon} ${statusText}
-                </button>
-            </td>
-            <td class="align-middle">
-                <a href="${actionLink}">${actionLabel}</a>
-            </td>
-        </tr>
-        `;
+<tr>
+  <td class="align-middle">
+    <div class="d-flex align-items-center gap-3">
+      <div>${calendarIcon}</div>
+      <div class="d-flex flex-column">
+        <span class="fw-semibold text-dark">${data.title}</span>
+        <span class="text-muted small mobile-hide">
+          ${data.date} — ${data.time}
+        </span>
+      </div>
+    </div>
+  </td>
+
+  <td class="align-middle">
+    <div class="icon-only justify-content-center">
+      ${userIcon}
+      <span>${roleOrVolunteers}</span>
+    </div>
+  </td>
+
+  <td class="align-middle">
+    <button
+      class="btn btn-soft rounded-pill status-btn"
+      style="${statusStyle}"
+    >
+      ${statusIcon}
+      ${shortStatus(statusText)}
+    </button>
+  </td>
+
+  <td class="align-middle">
+    <a href="${actionLink}" class="text-nowrap">
+      ${isMobile ? 'View' : actionLabel}
+    </a>
+  </td>
+</tr>
+`;
+
 
         container.insertAdjacentHTML("beforeend", row);
     }

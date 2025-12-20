@@ -8,9 +8,18 @@ let coreTasksData = null;
 let volunteersData = new Map();
 let roleNames = new Map();
 
-const serviceDateElement = document.getElementById('serviceDate');
-const mainContent = document.getElementById('middle');
-const serviceStatusElement = document.getElementById('status');
+let serviceDateElement;
+let mainContent;
+let serviceStatusElement;
+
+document.addEventListener('DOMContentLoaded', () => {
+    serviceDateElement = document.getElementById('serviceDate');
+    mainContent = document.getElementById('middle');
+    serviceStatusElement = document.getElementById('status');
+
+    setupEventListeners();
+    initDashboard();
+});
 
 function getAssignmentKeys(assignments) {
     if (!assignments) return [];
@@ -580,10 +589,5 @@ function setupEventListeners() {
 // Reinitialize Bootstrap components after DOM updates
 
 
-// Initialize dashboard
-document.addEventListener('DOMContentLoaded', () => {
-    setupEventListeners();
-    initDashboard();
-});
 
 export { initDashboard, getServiceIdFromURL, loadServiceData };

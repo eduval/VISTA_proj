@@ -60,7 +60,7 @@ async function setupNextButtonFromFirebase() {
     // Editing an existing service → go to dashboard
     nextBtn.classList.remove("btn-primary");
     nextBtn.classList.add("btn-warning");
-    nextBtn.querySelector("span").textContent = "Go to Service Dashboard";
+    nextBtn.querySelector("span").textContent = "Service Dashboard";
 
     nextBtn.onclick = e => {
       e.preventDefault();
